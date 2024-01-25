@@ -2,7 +2,7 @@ export default function Home() {
   return (
     <>
       <div className="flex flex-col justify-center items-center m-3">
-        <h1 className="text-5xl m-1 p-1 font-bold text-primary">Grocery App</h1>
+        <h1 className="text-5xl  p-1 font-bold text-primary">Grocery App</h1>
       </div>
       <div className="container bg-background rounded-lg border border-border mx-auto grid md:grid-cols-3 grid-cols-1 gap-4 p-5">
         {/* Section 1 */}
