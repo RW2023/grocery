@@ -3,7 +3,7 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Grocery List App',
-  description: 'Grocery list app built with Next.js and Supabase',
+  description: 'Family Grocery Planning App',
 };
 
 export default function RootLayout({
@@ -12,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en"data-theme="halloween">
       <body className="bg-base-300">{children}</body>
     </html>
   );
