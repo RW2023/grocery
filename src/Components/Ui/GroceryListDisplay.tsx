@@ -12,27 +12,39 @@ const GroceryListDisplay = () => {
   const [loading, setLoading] = useState(true);
 
   const fetchGroceryItems = async () => {
-    try {
-      setLoading(true);
-      const { data, error } = await supabase
-        .from('grocery_inventory')
-        .select('*');
-
-      if (error) throw error;
-      setGroceryItems(data as GroceryItem[]);
-    } catch (err) {
-      if (err instanceof Error) {
-        console.error('Error fetching grocery items:', err.message);
-      } else {
-        console.error('An unexpected error occurred:', err);
-      }
-    } finally {
-      setLoading(false);
+    const { data, error } = await supabase
+      .from('grocery_inventory')
+      .select('*');
+    if (error) {
+      console.error('Error fetching grocery items:', error.message);
+    } else {
+      setGroceryItems(data || []);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
     fetchGroceryItems();
+
+    // Real-time subscription
+    const channel = supabase
+      .channel('custom-insert-channel')
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'grocery_inventory' },
+        (payload) => {
+          console.log('Change received!', payload);
+          fetchGroceryItems(); // Refresh items on change
+        },
+      )
+      .subscribe();
+
+    // Cleanup on component unmount
+    return () => {
+      if (channel) {
+        channel.unsubscribe();
+      }
+    };
   }, []);
 
   if (loading) return <Loading />;
@@ -49,7 +61,7 @@ const GroceryListDisplay = () => {
             <div className="flex justify-between items-center">
               <div>
                 <div className="text-lg font-semibold bg-base-300 p-2 rounded">
-                   {item.name}
+                  {item.name}
                 </div>
               </div>
               <span className="badge badge-primary badge-outline">
