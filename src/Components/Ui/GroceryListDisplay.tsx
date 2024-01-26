@@ -61,7 +61,7 @@ const GroceryListDisplay = () => {
             <div className="flex justify-between items-center">
               <div>
                 <div className="text-lg font-semibold bg-base-300 p-2 rounded">
-                  {item.name}
+                 <span className='mr-1'>{item.id}</span> {item.name}
                 </div>
               </div>
               <span className="badge badge-primary badge-outline">
