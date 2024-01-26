@@ -43,12 +43,18 @@ const GroceryListDisplay = () => {
         {groceryItems.map((item) => (
           <li
             key={item.id}
-            className="flex justify-between items-center p-2 border-b border-gray-200 bg-base-100 rounded"
+            className="p-2 border-b border-gray-200 bg-base-100 rounded"
           >
-            <span className="text-lg font-semibold">{item.name}</span>
-            <span className="badge badge-primary badge-outline">
-              {item.quantity}
-            </span>
+            <div className="flex justify-between items-center">
+              <div>
+                <div className="text-lg font-semibold">
+                  Item Name: {item.name}
+                </div>
+              </div>
+              <span className="badge badge-primary badge-outline">
+                Quantity: {item.quantity}
+              </span>
+            </div>
           </li>
         ))}
       </ul>
