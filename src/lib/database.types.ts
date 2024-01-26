@@ -1,5 +1,3 @@
-//src/lib/database.types.ts
-
 export type Json =
   | string
   | number
@@ -347,6 +345,27 @@ export interface Database {
             referencedColumns: ["stop_id"]
           }
         ]
+      }
+      shopping_list: {
+        Row: {
+          id: number
+          isbought: boolean | null
+          name: string
+          quantity: number
+        }
+        Insert: {
+          id?: number
+          isbought?: boolean | null
+          name: string
+          quantity: number
+        }
+        Update: {
+          id?: number
+          isbought?: boolean | null
+          name?: string
+          quantity?: number
+        }
+        Relationships: []
       }
       stops: {
         Row: {
