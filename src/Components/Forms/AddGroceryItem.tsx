@@ -37,12 +37,12 @@ const AddGroceryItemForm = () => {
 
   return (
 <>
-<div className='border border-1 rounded p-3 bg-base-200 m-3'>
+<div className='border-border border-1 rounded p-3 bg-base-200 m-3'>
     <SubHeading title="Add Grocery Item"  />
 </div>
     <form
       onSubmit={handleSubmit}
-      className="form-control w-full max-w-xs mx-auto border border-1 rounded p-3 bg-base-300 m-3"
+      className="form-control w-full max-w-xs mx-auto border-border border-2 rounded p-3 bg-base-300 m-3"
     >
       {message && (
         <div
@@ -58,7 +58,7 @@ const AddGroceryItemForm = () => {
         <input
           type="text"
           id="itemName"
-          className="input input-bordered w-full"
+          className="input input-bordered border-border w-full"
           value={itemName}
           onChange={(e) => setItemName(e.target.value)}
         />
@@ -70,7 +70,7 @@ const AddGroceryItemForm = () => {
         <input
           type="number"
           id="quantity"
-          className="input input-bordered w-full"
+          className="input input-bordered border-border w-full"
           value={quantity}
         onChange={(e) => setQuantity(parseFloat(e.target.value))}        />
       </div>
