@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -17,9 +18,14 @@ export default function Home() {
               <li>View totals at a glance</li>
             </ul>
             <div className="card-actions justify-end">
-              <button type="button" className="btn btn-primary">
-                Inventory Dashboard
-              </button>
+              <Link
+              href={'/devdash'}
+              >
+                <button type="button" className="btn btn-primary"
+                >
+                  Inventory Dashboard
+                </button>
+              </Link>
             </div>
           </div>
         </div>
