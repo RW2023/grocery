@@ -1,3 +1,5 @@
+'use client';
+
 export default function Home() {
   return (
     <>
@@ -57,11 +59,20 @@ export default function Home() {
         </div>
       </div>
       <div className="container flex flex-col justify-center items-center p-4 my-6 mx-auto bg-background rounded-lg border border-border">
-        <h2 className="text-2xl font-semibold text-primary">Special Offers</h2>
-        <p className="py-2 text-secondary">
-          Check out our latest deals and discounts on select products.
-        </p>
-      </div>
-    </>
-  );
-}
+        <h2 className="text-2xl font-semibold text-headline">Organize The Household Food</h2>
+        <p className="py-2 text-primary">
+                    Check out your personalized dashboard
+                  </p>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => {
+                      window.location.href = '/devdash';
+                    }}
+                  >
+                    Dashboard
+                  </button>
+                </div>
+              </>
+            );
+          }
