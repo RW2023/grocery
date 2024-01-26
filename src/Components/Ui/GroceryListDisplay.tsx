@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '@/utils/supabaseClient';
 import SubHeading from '@/Components/Ui/SubHeading';
 import { Database } from '@/lib/database.types';
+import Loading from './Loading';
 
 const GroceryListDisplay = () => {
   type GroceryItem = Database['public']['Tables']['grocery_inventory']['Row'];
@@ -34,25 +35,25 @@ const GroceryListDisplay = () => {
     fetchGroceryItems();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loading />;
 
   return (
-    <div className="border border-1 rounded p-3 bg-base-200 m-3">
+    <div className="border-border border-2 rounded p-3 bg-base-200 m-3">
       <SubHeading title="Grocery List" />
       <ul>
         {groceryItems.map((item) => (
           <li
             key={item.id}
-            className="p-2 border-b border-gray-200 bg-base-100 rounded"
+            className="p-2 border-b border-border bg-base-100 rounded"
           >
             <div className="flex justify-between items-center">
               <div>
-                <div className="text-lg font-semibold">
-                  Item Name: {item.name}
+                <div className="text-lg font-semibold bg-base-300 p-2 rounded">
+                   {item.name}
                 </div>
               </div>
               <span className="badge badge-primary badge-outline">
-                Quantity: {item.quantity}
+                Q: {item.quantity}
               </span>
             </div>
           </li>
