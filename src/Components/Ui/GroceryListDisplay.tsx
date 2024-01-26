@@ -51,7 +51,7 @@ const GroceryListDisplay = () => {
 
   return (
     <div className="border-border border-2 rounded p-3 bg-base-200 m-3">
-      <SubHeading title="Grocery List" />
+      <SubHeading title="Inventory" />
       <ul>
         {groceryItems.map((item) => (
           <li
