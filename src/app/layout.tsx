@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import Navbar from '@/Components/Ui/Navbar';
+import Footer from '@/Components/Ui/Footer';
 
 export const metadata: Metadata = {
   title: 'Grocery List App',
@@ -18,6 +19,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         </body>
+        <Footer />
     </html>
   );
 }
