@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Heading from '@/Components/Ui/Heading';
 import AddGroceryItem from '@/Components/Forms/AddGroceryItem';
-import GroceryListDisplay from '@/Components/Ui/GroceryListDisplay';
+import GroceryListDisplay from '@/Components/Ui/InventoryListDisplay';
 import UpdateGroceryItem from '@/Components/Forms/UpdateGroceryItem';
 
 interface Props {}
