@@ -3,6 +3,7 @@ import Heading from '@/Components/Ui/Heading';
 import AddGroceryItem from '@/Components/Forms/AddGroceryItem';
 import GroceryListDisplay from '@/Components/Ui/InventoryListDisplay';
 import UpdateGroceryItem from '@/Components/Forms/UpdateGroceryItem';
+import ManageGroceryItemForm from '@/Components/Forms/ManageInventory';
 
 interface Props {}
 
@@ -11,8 +12,7 @@ const page: FC<Props> = (): JSX.Element => {
         <div className='min-h-screen bg-background'>
             <Heading title='DevDash' />
             <GroceryListDisplay />
-            <AddGroceryItem />
-            <UpdateGroceryItem />
+           <ManageGroceryItemForm />
         </div>
     );
 };
