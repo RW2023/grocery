@@ -21,6 +21,19 @@ const ShoppingListDisplay = () => {
     setLoading(false);
   };
 
+  const toggleItemBought = async (item: ShoppingItem) => {
+    const { data, error } = await supabase
+      .from('shopping_list')
+      .update({ isbought: !item.isbought })
+      .eq('id', item.id);
+
+    if (error) {
+      console.error('Error updating item:', error);
+    } else {
+      fetchShoppingItems(); // Refresh the list to show the updated status
+    }
+  };
+
   useEffect(() => {
     fetchShoppingItems();
 
@@ -54,23 +67,24 @@ const ShoppingListDisplay = () => {
         {shoppingItems.map((item) => (
           <li
             key={item.id}
-            className="p-2 border-b border-border bg-base-100 rounded"
+            className="p-2 border-b border-border bg-base-100 rounded flex justify-between items-center"
           >
-            <div className="flex justify-between items-center">
-              <div className="text-lg font-semibold bg-base-300 p-2 rounded">
-                <span className="mr-1">{item.id}</span> {item.name}
-              </div>
-              <span className="badge badge-primary badge-outline">
-                Quantity: {item.quantity}
-              </span>
-              <span
-                className={`badge ${
-                  item.isbought ? 'badge-success' : 'badge-secondary'
-                }`}
-              >
-                {item.isbought ? 'Bought' : 'Pending'}
-              </span>
+            <div className="text-lg font-semibold bg-base-300 p-2 rounded">
+              <span className="mr-1">{item.id}</span> {item.name}
             </div>
+            <span className="badge badge-primary badge-outline">
+              Quantity: {item.quantity}
+            </span>
+            <label className="swap swap-rotate">
+              <input
+                type="checkbox"
+                checked={item.isbought || false}
+                onChange={() => toggleItemBought(item)}
+              />
+
+              <div className="swap-on">✓</div>
+              <div className="swap-off">✕</div>
+            </label>
           </li>
         ))}
       </ul>
