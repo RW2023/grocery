@@ -132,12 +132,12 @@ const Navbar = () => {
               <i className="mr-2"></i>Inventory{' '}
             </span>
           </Link>
-            <Link href="/mealplanner">
+            <Link href="/list">
                 <span
                 onClick={closeNavbar}
                 className="block mt-4 lg:inline-block lg:mt-0 text-strokeLight text-xl  hover:underline mr-4 cursor-pointer"
                 >
-                <i className="mr-2"></i>Meal Planner
+                <i className="mr-2"></i>Shopping List
                 </span>
             </Link>
             <Link href="/recipes">
