@@ -1,5 +1,5 @@
-'use client';
 //src/Components/Forms/AddShoppingList.tsx
+'use client';
 import React, { useState } from 'react';
 import { supabase } from '@/utils/supabaseClient';
 import SubHeading from '@/Components/Ui/SubHeading';
@@ -62,7 +62,6 @@ const ManageGroceryItemForm = () => {
       resetForm();
     }
   };
-
 
   const resetForm = () => {
     setItemName('');
