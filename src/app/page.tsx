@@ -19,11 +19,11 @@ export default function Home() {
             </ul>
             <div className="card-actions justify-end">
               <Link
-              href={'/devdash'}
+              href={'/inventory'}
               >
                 <button type="button" className="btn btn-primary"
                 >
-                  Inventory Dashboard
+                  Inventory
                 </button>
               </Link>
             </div>
