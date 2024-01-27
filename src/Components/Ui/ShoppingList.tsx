@@ -1,3 +1,4 @@
+//src/Components/Ui/ShoppingList.tsx
 'use client';
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/utils/supabaseClient';
@@ -22,7 +23,7 @@ const ShoppingListDisplay = () => {
   };
 
   const toggleItemBought = async (item: ShoppingItem) => {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('shopping_list')
       .update({ isbought: !item.isbought })
       .eq('id', item.id);
@@ -31,6 +32,29 @@ const ShoppingListDisplay = () => {
       console.error('Error updating item:', error);
     } else {
       fetchShoppingItems(); // Refresh the list to show the updated status
+    }
+  };
+
+  const deleteItem = async (itemId: number) => {
+    const { error } = await supabase
+      .from('shopping_list')
+      .delete()
+      .match({ id: itemId });
+    if (error) {
+      console.error('Error deleting item:', error);
+    } else {
+      fetchShoppingItems(); // Refresh the list
+    }
+  };
+
+  const clearList = async () => {
+    if (window.confirm('Are you sure you want to clear the entire list?')) {
+      const { error } = await supabase.from('shopping_list').delete();
+      if (error) {
+        console.error('Error clearing the list:', error);
+      } else {
+        fetchShoppingItems(); // Refresh the list
+      }
     }
   };
 
@@ -70,24 +94,31 @@ const ShoppingListDisplay = () => {
             className="p-2 border-b border-border bg-base-100 rounded flex justify-between items-center"
           >
             <div className="text-lg font-semibold bg-base-300 p-2 rounded">
-              <span className="mr-1">{item.id}</span> {item.name}
+              {item.name} - Quantity: {item.quantity}
             </div>
-            <span className="badge badge-primary badge-outline">
-              Quantity: {item.quantity}
-            </span>
-            <label className="swap swap-rotate">
-              <input
-                type="checkbox"
-                checked={item.isbought || false}
-                onChange={() => toggleItemBought(item)}
-              />
-
-              <div className="swap-on">✓</div>
-              <div className="swap-off">✕</div>
-            </label>
+            <div>
+              <label className="swap swap-rotate">
+                <input
+                  type="checkbox"
+                  checked={item.isbought || false}
+                  onChange={() => toggleItemBought(item)}
+                />
+                <div className="swap-on">✓ Bought</div>
+                <div className="swap-off">Pending</div>
+              </label>
+              <button
+                className="btn btn-xs btn-error mx-1"
+                onClick={() => deleteItem(item.id)}
+              >
+                Delete
+              </button>
+            </div>
           </li>
         ))}
       </ul>
+      <button className="btn btn-warning mt-4" onClick={clearList}>
+        Clear List
+      </button>
     </div>
   );
 };
