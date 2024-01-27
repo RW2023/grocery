@@ -47,17 +47,23 @@ const ShoppingListDisplay = () => {
     }
   };
 
-  const clearList = async () => {
-    if (window.confirm('Are you sure you want to clear the entire list?')) {
-      const { error } = await supabase.from('shopping_list').delete();
-      if (error) {
-        console.error('Error clearing the list:', error);
-      } else {
-        fetchShoppingItems(); // Refresh the list
+const clearList = async () => {
+  if (window.confirm('Are you sure you want to clear the entire list?')) {
+    try {
+      // Loop through each item and delete it
+      for (const item of shoppingItems) {
+        const { error } = await supabase
+          .from('shopping_list')
+          .delete()
+          .match({ id: item.id });
+        if (error) throw error;
       }
+      fetchShoppingItems(); // Refresh the list after clearing
+    } catch (error) {
+      console.error('Error clearing the list:', error);
     }
-  };
-
+  }
+};
   useEffect(() => {
     fetchShoppingItems();
 
