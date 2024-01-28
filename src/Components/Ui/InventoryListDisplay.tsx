@@ -60,7 +60,7 @@ const GroceryListDisplay = () => {
   if (loading) return <Loading />;
 
   return (
-    <div className="border-border border-2 rounded p-3 bg-base-200 m-3">
+    <div className="border-border border-2 rounded p-3 bg-base-300 m-3">
       <SubHeading title="Inventory" />
       <div className="flex flex-col justify-center items-center">
         <input
@@ -79,7 +79,7 @@ const GroceryListDisplay = () => {
           >
             <div className="flex justify-between items-center">
               <div>
-                <div className="text-lg font-semibold bg-base-300 p-2 rounded">
+                <div className="text-lg font-semibold bg-base-300 p-2 rounded border-border border drop-shadow-lg">
                   <span className="mr-1">{item.id}</span> {item.name}
                 </div>
               </div>
