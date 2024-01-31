@@ -57,7 +57,7 @@ export default function Login() {
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium"
           >
             Email
           </label>
@@ -74,7 +74,7 @@ export default function Login() {
         <div>
           <label
             htmlFor="password"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium "
           >
             Password
           </label>
