@@ -47,23 +47,23 @@ const ShoppingListDisplay = () => {
     }
   };
 
-const clearList = async () => {
-  if (window.confirm('Are you sure you want to clear the entire list?')) {
-    try {
-      // Loop through each item and delete it
-      for (const item of shoppingItems) {
-        const { error } = await supabase
-          .from('shopping_list')
-          .delete()
-          .match({ id: item.id });
-        if (error) throw error;
+  const clearList = async () => {
+    if (window.confirm('Are you sure you want to clear the entire list?')) {
+      try {
+        // Loop through each item and delete it
+        for (const item of shoppingItems) {
+          const { error } = await supabase
+            .from('shopping_list')
+            .delete()
+            .match({ id: item.id });
+          if (error) throw error;
+        }
+        fetchShoppingItems(); // Refresh the list after clearing
+      } catch (error) {
+        console.error('Error clearing the list:', error);
       }
-      fetchShoppingItems(); // Refresh the list after clearing
-    } catch (error) {
-      console.error('Error clearing the list:', error);
     }
-  }
-};
+  };
   useEffect(() => {
     fetchShoppingItems();
 
@@ -93,35 +93,33 @@ const clearList = async () => {
   return (
     <div className="border-border border-2 rounded p-3 bg-base-200 m-3">
       <SubHeading title="Shopping List" />
-      <ul>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {shoppingItems.map((item) => (
-          <li
-            key={item.id}
-            className="p-2 border-b border-border bg-base-100 rounded flex justify-between items-center"
-          >
-            <div className="text-lg font-semibold bg-base-300 p-2 rounded">
-              {item.name} - Quantity: {item.quantity}
+          <div key={item.id} className="card bg-base-100 shadow-xl p-3">
+            <div className="card-body">
+              <h2 className="card-title">{item.name}</h2>
+              <p>Quantity: {item.quantity}</p>
+              <div className="card-actions justify-end">
+                <label className="swap swap-rotate">
+                  <input
+                    type="checkbox"
+                    checked={item.isbought || false}
+                    onChange={() => toggleItemBought(item)}
+                  />
+                  <div className="swap-on">✓ Bought</div>
+                  <div className="swap-off">Pending</div>
+                </label>
+                <button
+                  className="btn btn-xs btn-error"
+                  onClick={() => deleteItem(item.id)}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
-            <div>
-              <label className="swap swap-rotate">
-                <input
-                  type="checkbox"
-                  checked={item.isbought || false}
-                  onChange={() => toggleItemBought(item)}
-                />
-                <div className="swap-on">✓ Bought</div>
-                <div className="swap-off">Pending</div>
-              </label>
-              <button
-                className="btn btn-xs btn-error mx-1"
-                onClick={() => deleteItem(item.id)}
-              >
-                Delete
-              </button>
-            </div>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
       <button className="btn btn-warning mt-4" onClick={clearList}>
         Clear List
       </button>
