@@ -1,4 +1,4 @@
-//src/Components/Ui/DetailedGroceryList.tsx
+// src/Components/Ui/DetailedGroceryListDisplay.tsx
 'use client';
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/utils/supabaseClient';
@@ -10,6 +10,7 @@ const DetailedGroceryListDisplay = () => {
   type GroceryItem = Database['public']['Tables']['grocery_inventory']['Row'];
 
   const [groceryItems, setGroceryItems] = useState<GroceryItem[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
 
   const fetchGroceryItems = async () => {
@@ -28,39 +29,46 @@ const DetailedGroceryListDisplay = () => {
     fetchGroceryItems();
   }, []);
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value.toLowerCase());
+  };
+
+  const filteredGroceryItems = searchQuery
+    ? groceryItems.filter((item) =>
+        item.name.toLowerCase().includes(searchQuery),
+      )
+    : groceryItems;
+
   if (loading) return <Loading />;
 
   return (
     <div className="border-border border-2 rounded p-3 bg-base-300 m-3">
       <SubHeading title="Detailed Inventory" />
-      <ul>
-        {groceryItems.map((item) => (
-          <li
-            key={item.id}
-            className="p-2 border-b border-border bg-base-100 rounded"
-          >
-            <div className="flex justify-between items-center">
-              <div>
-                <div className="text-lg font-semibold bg-base-300 p-2 rounded border-border border drop-shadow-lg">
-                  <span className="mr-1">{item.id}</span> {item.name}
-                </div>
-                {/* Displaying additional information */}
-                <div className="mt-2 text-sm">
-                  <strong>Quantity:</strong> {item.quantity}
-                </div>
-                <div className="text-sm">
-                  <strong>Food Group:</strong> {item.Food_Group || 'N/A'}
-                </div>
-                <div className="text-sm">
-                  <strong>Health:</strong>{' '}
-                  {item.Health ? 'Healthy' : 'Unhealthy'}
-                </div>
-              </div>
+      <div className="flex flex-col justify-center items-center mb-4">
+        <input
+          type="text"
+          placeholder="Search items..."
+          className="input input-bordered border-border w-full sm:w-2/3 md:w-2/3 lg:w-2/3"
+          value={searchQuery}
+          onChange={handleSearchChange}
+        />
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {filteredGroceryItems.map((item) => (
+          <div key={item.id} className="card bg-base-100 shadow-xl">
+            <div className="card-body">
+              <h2 className="card-title">
+                {item.name}
+                <div className="badge badge-secondary">ID: {item.id}</div>
+              </h2>
+              <p>Quantity: {item.quantity}</p>
+              <p>Food Group: {item.Food_Group || 'N/A'}</p>
+              <p>Health: {item.Health ? 'Healthy' : 'Unhealthy'}</p>
             </div>
-          </li>
+          </div>
         ))}
-      </ul>
-      {groceryItems.length === 0 && <p>No matching items found.</p>}
+      </div>
+      {filteredGroceryItems.length === 0 && <p>No matching items found.</p>}
     </div>
   );
 };
