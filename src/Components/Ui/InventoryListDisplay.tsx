@@ -77,9 +77,9 @@ const GroceryListDisplay = () => {
             <div className="card-body">
               <h2 className="card-title">
                 {item.name}
-                <div className="badge badge-secondary">ID: {item.id}</div>
+                <div className="rounded border-border text-sm">ID:<span className='text-sm'> {item.id}</span></div>
               </h2>
-              <p>Quantity: {item.quantity}</p>
+              <p className="badge badge-secondary">Quantity: {item.quantity}</p>
             </div>
           </div>
         ))}
