@@ -1,4 +1,3 @@
-//src/lib/database.types.ts
 export type Json =
   | string
   | number
@@ -135,23 +134,79 @@ export interface Database {
         }
         Relationships: []
       }
+      games: {
+        Row: {
+          description: string | null
+          game_id: number
+          name: string
+        }
+        Insert: {
+          description?: string | null
+          game_id?: number
+          name: string
+        }
+        Update: {
+          description?: string | null
+          game_id?: number
+          name?: string
+        }
+        Relationships: []
+      }
       grocery_inventory: {
         Row: {
+          Food_Group: string | null
+          Health: boolean | null
           id: number
           name: string
           quantity: number
         }
         Insert: {
+          Food_Group?: string | null
+          Health?: boolean | null
           id?: number
           name: string
           quantity: number
         }
         Update: {
+          Food_Group?: string | null
+          Health?: boolean | null
           id?: number
           name?: string
           quantity?: number
         }
         Relationships: []
+      }
+      matches: {
+        Row: {
+          game_id: number | null
+          match_id: number
+          player1_score: number
+          player2_score: number
+          winner: string
+        }
+        Insert: {
+          game_id?: number | null
+          match_id?: number
+          player1_score: number
+          player2_score: number
+          winner: string
+        }
+        Update: {
+          game_id?: number | null
+          match_id?: number
+          player1_score?: number
+          player2_score?: number
+          winner?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "matches_game_id_fkey"
+            columns: ["game_id"]
+            isOneToOne: false
+            referencedRelation: "games"
+            referencedColumns: ["game_id"]
+          }
+        ]
       }
       meal_planning: {
         Row: {
