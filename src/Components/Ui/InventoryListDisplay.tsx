@@ -1,4 +1,4 @@
-//src/Components/Ui/InventoryListDisplay.tsx
+// src/Components/Ui/InventoryListDisplay.tsx
 'use client';
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/utils/supabaseClient';
@@ -62,34 +62,28 @@ const GroceryListDisplay = () => {
   return (
     <div className="border-border border-2 rounded p-3 bg-base-300 m-3">
       <SubHeading title="Inventory" />
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center mb-4">
         <input
           type="text"
           placeholder="Search items..."
-          className="input input-bordered border-border w-full sm:w-2/3 md:w-2/3 lg:w-2/3 mb-4"
+          className="input input-bordered border-border w-full sm:w-2/3 md:w-2/3 lg:w-2/3"
           value={searchQuery}
           onChange={handleSearchChange}
         />
       </div>
-      <ul>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {filteredGroceryItems.map((item) => (
-          <li
-            key={item.id}
-            className="p-2 border-b border-border bg-base-100 rounded"
-          >
-            <div className="flex justify-between items-center">
-              <div>
-                <div className="text-lg font-semibold bg-base-300 p-2 rounded border-border border drop-shadow-lg">
-                  <span className="mr-1">{item.id}</span> {item.name}
-                </div>
-              </div>
-              <span className="badge badge-primary badge-outline">
-                Q: {item.quantity}
-              </span>
+          <div key={item.id} className="card bg-base-100 shadow-xl">
+            <div className="card-body">
+              <h2 className="card-title">
+                {item.name}
+                <div className="badge badge-secondary">ID: {item.id}</div>
+              </h2>
+              <p>Quantity: {item.quantity}</p>
             </div>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
       {filteredGroceryItems.length === 0 && <p>No matching items found.</p>}
     </div>
   );
