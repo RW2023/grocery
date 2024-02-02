@@ -71,13 +71,15 @@ const GroceryListDisplay = () => {
           onChange={handleSearchChange}
         />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredGroceryItems.map((item) => (
           <div key={item.id} className="card bg-base-100 shadow-xl">
             <div className="card-body">
               <h2 className="card-title">
                 {item.name}
-                <div className="rounded border-border text-sm">ID:<span className='text-sm'> {item.id}</span></div>
+                <div className="rounded border-border text-sm">
+                  ID:<span className="text-sm"> {item.id}</span>
+                </div>
               </h2>
               <p className="badge badge-secondary">Quantity: {item.quantity}</p>
             </div>

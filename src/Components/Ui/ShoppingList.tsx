@@ -1,4 +1,3 @@
-//src/Components/Ui/ShoppingList.tsx
 'use client';
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/utils/supabaseClient';
@@ -11,6 +10,7 @@ const ShoppingListDisplay = () => {
 
   const [shoppingItems, setShoppingItems] = useState<ShoppingItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const fetchShoppingItems = async () => {
     const { data, error } = await supabase.from('shopping_list').select('*');
@@ -64,6 +64,7 @@ const ShoppingListDisplay = () => {
       }
     }
   };
+
   useEffect(() => {
     fetchShoppingItems();
 
@@ -88,13 +89,26 @@ const ShoppingListDisplay = () => {
     };
   }, []);
 
+  const filteredItems = shoppingItems.filter((item) =>
+    item.name.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
+
   if (loading) return <Loading />;
 
   return (
     <div className="border-border border-2 rounded p-3 bg-base-200 m-3">
       <SubHeading title="Shopping List" />
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {shoppingItems.map((item) => (
+      <div className="m-3 flex justify-center items-center">
+        <input
+          type="text"
+          className="input input-bordered border-border w-full sm:w-2/3 md:w-2/3 lg:w-2/3"
+          placeholder="Search items..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {filteredItems.map((item) => (
           <div key={item.id} className="card bg-base-100 shadow-xl p-3">
             <div className="card-body">
               <h2 className="card-title">{item.name}</h2>
@@ -120,7 +134,11 @@ const ShoppingListDisplay = () => {
           </div>
         ))}
       </div>
-      <button className="btn btn-warning mt-4" onClick={clearList}>
+      <button
+        type="button"
+        className="btn btn-warning mt-4"
+        onClick={clearList}
+      >
         Clear List
       </button>
     </div>

@@ -64,7 +64,7 @@ const filteredGroceryItems = groceryItems.filter(
           onChange={handleSearchChange}
         />
         <select
-            title="Health Filter"
+          title="Health Filter"
           className="select select-bordered w-full md:w-1/3"
           value={healthFilter}
           onChange={handleHealthFilterChange}
@@ -74,7 +74,7 @@ const filteredGroceryItems = groceryItems.filter(
           <option value="unhealthy">Unhealthy</option>
         </select>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredGroceryItems.map((item) => (
           <div key={item.id} className="card bg-base-100 shadow-xl">
             <div className="card-body">
