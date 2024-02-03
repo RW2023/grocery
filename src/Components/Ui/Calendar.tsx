@@ -35,7 +35,6 @@ const Calendar: FC<Props> = (): JSX.Element => {
     }
 
     setMeals(data || []);
-    console.log(data)
     };
 
     fetchMealsForMonth(currentYear, currentMonth);
