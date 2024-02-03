@@ -1,4 +1,3 @@
-//src/lib/database.types.ts
 export type Json =
   | string
   | number
@@ -323,16 +322,19 @@ export interface Database {
         Row: {
           description: string | null
           id: number
+          "Main Ingredient": string | null
           name: string
         }
         Insert: {
           description?: string | null
           id?: number
+          "Main Ingredient"?: string | null
           name: string
         }
         Update: {
           description?: string | null
           id?: number
+          "Main Ingredient"?: string | null
           name?: string
         }
         Relationships: []
@@ -426,28 +428,34 @@ export interface Database {
       }
       stops: {
         Row: {
+          building_access: string | null
           delivery_instructions: string | null
           hospital_address: string | null
           hospital_name: string | null
           image_url: string | null
+          Item_needed: string | null
           pickup_instructions: string | null
           stop_id: number
           stop_name: string | null
         }
         Insert: {
+          building_access?: string | null
           delivery_instructions?: string | null
           hospital_address?: string | null
           hospital_name?: string | null
           image_url?: string | null
+          Item_needed?: string | null
           pickup_instructions?: string | null
           stop_id?: number
           stop_name?: string | null
         }
         Update: {
+          building_access?: string | null
           delivery_instructions?: string | null
           hospital_address?: string | null
           hospital_name?: string | null
           image_url?: string | null
+          Item_needed?: string | null
           pickup_instructions?: string | null
           stop_id?: number
           stop_name?: string | null
