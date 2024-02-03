@@ -132,28 +132,28 @@ const Navbar = () => {
               <i className="mr-2"></i>Inventory{' '}
             </span>
           </Link>
-            <Link href="/list">
-                <span
-                onClick={closeNavbar}
-                className="block mt-4 lg:inline-block lg:mt-0 text-strokeLight text-xl  hover:underline mr-4 cursor-pointer"
-                >
-                <i className="mr-2"></i>Shopping List
-                </span>
-            </Link>
-            <Link href="/recipes">
-                <span
-                onClick={closeNavbar}
-                className="block mt-4 lg:inline-block lg:mt-0 text-strokeLight text-xl  hover:underline mr-4 cursor-pointer"
-                >
-                <i className="mr-2"></i>Recipes
-                </span>
-            </Link>
-          <Link href="/about">
+          <Link href="/list">
             <span
               onClick={closeNavbar}
               className="block mt-4 lg:inline-block lg:mt-0 text-strokeLight text-xl  hover:underline mr-4 cursor-pointer"
             >
-              <i className="fas fa-info mr-2"></i>About
+              <i className="mr-2"></i>Shopping List
+            </span>
+          </Link>
+          <Link href="/recipes">
+            <span
+              onClick={closeNavbar}
+              className="block mt-4 lg:inline-block lg:mt-0 text-strokeLight text-xl hover:underline mr-4 cursor-pointer"
+            >
+              Recipes
+            </span>
+          </Link>
+          <Link href="/mealplanner">
+            <span
+              onClick={closeNavbar}
+              className="block mt-4 lg:inline-block lg:mt-0 text-strokeLight text-xl hover:underline mr-4 cursor-pointer"
+            >
+              Meal Planner
             </span>
           </Link>
           <Link href="/feedback">
