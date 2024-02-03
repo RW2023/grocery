@@ -35,6 +35,7 @@ const Calendar: FC<Props> = (): JSX.Element => {
     }
 
     setMeals(data || []);
+    console.log(data)
     };
 
     fetchMealsForMonth(currentYear, currentMonth);
@@ -76,7 +77,7 @@ const Calendar: FC<Props> = (): JSX.Element => {
   for (let i = 0; i < firstDayOfMonth; i++) {
     // push empty cells at the start of the month
     calendarDates.push(
-      <div key={`empty-${i}`} className="day-cell empty"></div>,
+      <div key={`empty-${i}`} className="day-cell empty bg-transparent"></div>,
     );
   }
   for (let day = 1; day <= daysInMonth; day++) {
@@ -112,16 +113,25 @@ const Calendar: FC<Props> = (): JSX.Element => {
           Next
         </button>
       </div>
-      <div className="calendar-grid grid grid-cols-7 gap-2">
+      <div className="calendar-grid grid grid-cols-7 gap-4">
         {dayNames.map((dayName) => (
           <div
             key={dayName}
-            className="day-of-week text-sm uppercase text-gray-500"
+            className="day-of-week text-sm font-bold uppercase "
           >
             {dayName}
           </div>
         ))}
-        {calendarDates}
+        {calendarDates.map((date, index) => (
+          <div
+            key={index}
+            className={`day-cell ${
+              !date ? 'bg-transparent' : 'bg-base-100 hover:bg-base-300'
+            } rounded-lg shadow p-2 transition duration-200 ease-in-out`}
+          >
+            {date}
+          </div>
+        ))}
       </div>
     </div>
   );
