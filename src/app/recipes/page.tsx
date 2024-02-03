@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/utils/supabaseClient';
 import Loading from '@/Components/Ui/Loading';
+import Heading from '@/Components/Ui/Heading';
+import SubHeading from '@/Components/Ui/SubHeading';
 
 type Recipe = {
   id: number;
@@ -43,15 +45,26 @@ export default function RecipesPage() {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div>
-      <h1>Recipes</h1>
-      {recipes.map((recipe) => (
-        <div key={recipe.id}>
-          <h2>{recipe.name}</h2>
-          <p>{recipe.description}</p>
-          {/* Add more details if needed */}
-        </div>
-      ))}
+    <div className="container mx-auto p-4">
+      <Heading title="Recipes" iconClass="fas fa-utensils" />
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {recipes.map((recipe) => (
+          <div
+            key={recipe.id}
+            className="card bg-base-200 shadow-xl rounded-lg overflow-hidden"
+          >
+            <div className="card-body">
+              <SubHeading title={recipe.name} iconClass="fas fa-recipe" />
+              <p>{recipe.description || 'No description available'}</p>
+              {/* Add more details if needed */}
+              <div className="card-actions justify-end">
+                <button className="btn btn-primary">View Recipe</button>
+                {/* Additional actions can be added here */}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
