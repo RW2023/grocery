@@ -127,6 +127,7 @@ const Calendar: FC<Props> = (): JSX.Element => {
             className={`day-cell ${
               !date ? 'bg-transparent' : 'bg-base-100 hover:bg-base-300'
             } rounded-lg shadow p-2 transition duration-200 ease-in-out`}
+            style={{ border: '1px solid #ccc' }} // Add this line to add a border
           >
             {date}
           </div>
