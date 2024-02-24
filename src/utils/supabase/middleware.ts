@@ -1,9 +1,9 @@
-import { createServerClient, type CookieOptions } from "@supabase/ssr";
-import { type NextRequest, NextResponse } from "next/server";
+import { createServerClient, type CookieOptions } from '@supabase/ssr';
+import { type NextRequest, NextResponse } from 'next/server';
+
+const protectedRoutes = ['/dashboard', '/profile', '/devdash']; // Add your protected routes here
 
 export const updateSession = async (request: NextRequest) => {
-  // This `try/catch` block is only here for the interactive tutorial.
-  // Feel free to remove once you have Supabase connected.
   try {
     // Create an unmodified response
     let response = NextResponse.next({
@@ -42,7 +42,7 @@ export const updateSession = async (request: NextRequest) => {
             // If the cookie is removed, update the cookies for the request and response
             request.cookies.set({
               name,
-              value: "",
+              value: '',
               ...options,
             });
             response = NextResponse.next({
@@ -52,7 +52,7 @@ export const updateSession = async (request: NextRequest) => {
             });
             response.cookies.set({
               name,
-              value: "",
+              value: '',
               ...options,
             });
           },
@@ -60,15 +60,16 @@ export const updateSession = async (request: NextRequest) => {
       },
     );
 
-    // This will refresh session if expired - required for Server Components
-    // https://supabase.com/docs/guides/auth/server-side/nextjs
-    await supabase.auth.getUser();
+    const { user } = await supabase.auth.getUser();
+
+    // Redirect unauthenticated users trying to access protected routes
+    if (!user && protectedRoutes.includes(request.nextUrl.pathname)) {
+      return NextResponse.redirect(new URL('/login', request.url));
+    }
 
     return response;
   } catch (e) {
-    // If you are here, a Supabase client could not be created!
-    // This is likely because you have not set up environment variables.
-    // Check out http://localhost:3000 for Next Steps.
+    // Error handling
     return NextResponse.next({
       request: {
         headers: request.headers,
