@@ -92,7 +92,7 @@ const Calendar: FC<Props> = (): JSX.Element => {
         <div className="date">{day}</div>
         {daysMeals.map((meal) => (
           <div key={meal.id} className="meal">
-            {meal.meal_type}: Recipe {meal.recipe_id}
+            {meal.meal_type}: ID: {meal.recipe_id}
           </div>
         ))}
       </div>,
