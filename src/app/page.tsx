@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       <div className="flex flex-col justify-center items-center m-3">
-        <h1 className="text-5xl  p-1 font-bold text-primary">Grocery App</h1>
+        <h1 className="text-5xl  p-1 font-bold text-base-content">Grocery App</h1>
       </div>
       <div className="container bg-background rounded-lg border border-border mx-auto grid md:grid-cols-3 grid-cols-1 gap-4 p-5">
         {/* Section 1 */}
@@ -55,8 +55,8 @@ export default function Home() {
       <div className="container flex flex-col justify-center items-center p-4 my-6 mx-auto bg-background rounded-lg border border-border">
       <div className='card card-compact bg-base-100 shadow-xl w-full p-4'>
         <SubHeading title="Detailed Inventory" />
-          <p className="py-2 text-primary">
-            Enhanced search
+          <p className="py-2 text-base-content">
+            Enhanced search. Search inventory by name, category. More options and enhancements will be added over time. 
           </p>
           <button
             type="button"
