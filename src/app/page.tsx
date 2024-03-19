@@ -1,4 +1,6 @@
 'use client';
+import SectionCard from '@/Components/SectionCard';
+import SubHeading from '@/Components/Ui/SubHeading';
 import Link from 'next/link';
 
 export default function Home() {
@@ -9,76 +11,64 @@ export default function Home() {
       </div>
       <div className="container bg-background rounded-lg border border-border mx-auto grid md:grid-cols-3 grid-cols-1 gap-4 p-5">
         {/* Section 1 */}
-        <div className="card card-compact bg-base-100 shadow-xl">
-          <div className="card-body">
-            <h2 className="card-title text-secondary">Grocery Inventory</h2>
+       <SectionCard
+          headingTitle="Shopping List"
+          content={
             <ul>
-              <li>Determine stock levels at a glance</li>
-              <li>Quickly add new items</li>
-              <li>View totals at a glance</li>
+              <li>Organize your grocery list</li>
+              <li>Sort by aisle or category</li>
+              <li>Check off items as you shop</li>
             </ul>
-            <div className="card-actions justify-end">
-              <Link
-              href={'/inventory'}
-              >
-                <button type="button" className="btn btn-primary"
-                >
-                  Inventory
-                </button>
-              </Link>
-            </div>
-          </div>
-        </div>
+          }
+          href={'/list'}
+          buttonText="Shopping List"
+        />
 
         {/* Section 2 */}
-        <div className="card card-compact bg-base-100 shadow-xl">
-          <div className="card-body">
-            <h2 className="card-title text-secondary">Meal Planner</h2>
+        <SectionCard
+          headingTitle="Grocery Inventory"
+          content={
             <ul>
-              <li>Plan meals for the entire week</li>
-              <li>View recipes for each meal</li>
-              <li>Generate a shopping list</li>
+              <li>Keep track of what you have</li>
+              <li>Set expiration dates</li>
+              <li>Get notified when items are expiring</li>
             </ul>
-            <div className="card-actions justify-end">
-              <button type="button" className="btn btn-primary">
-                Meal Planner
-              </button>
-            </div>
-          </div>
-        </div>
+          }
+          href={'/inventory'}
+          buttonText="Grocery Inventory"
+        />
 
         {/* Section 3 */}
-        <div className="card card-compact bg-base-100 shadow-xl">
-          <div className="card-body">
-            <h2 className="card-title text-secondary">Recipe Collection</h2>
+        <SectionCard
+          headingTitle="Meal Planning"
+          content={
             <ul>
-              <li>Discover new recipes and add your favorites</li>
-              <li>Rate and review recipes</li>
-              <li>Easily access your recipe collection</li>
+              <li>Plan your meals for the week</li>
+              <li>Generate a shopping list from your meal plan</li>
+              <li>Save your favorite recipes</li>
             </ul>
-            <div className="card-actions justify-end">
-              <button type="button" className="btn btn-primary">
-                Explore Recipes
-              </button>
-            </div>
-          </div>
-        </div>
+          }
+          href={'/mealplanner'}
+          buttonText="Meal Planning"
+          />
       </div>
       <div className="container flex flex-col justify-center items-center p-4 my-6 mx-auto bg-background rounded-lg border border-border">
-        <h2 className="text-2xl font-semibold text-headline">Organize The Household Food</h2>
-        <p className="py-2 text-primary">
-                    Check out your personalized dashboard
-                  </p>
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={() => {
-                      window.location.href = '/devdash';
-                    }}
-                  >
-                    Dashboard
-                  </button>
-                </div>
-              </>
-            );
+      <div className='card card-compact bg-base-100 shadow-xl w-full p-4'>
+        <SubHeading title="Detailed Inventory" />
+          <p className="py-2 text-primary">
+            Enhanced search
+          </p>
+          <button
+            type="button"
+            className="btn btn-primary w-32"
+            onClick={() => {
+              window.location.href = '/devdash';
+            }}
+          >
+            Dashboard
+          </button>
+      </div>
+      </div>
+    </>
+  );
           }
