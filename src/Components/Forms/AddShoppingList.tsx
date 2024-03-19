@@ -64,7 +64,7 @@ const AddShoppingItemForm = () => {
 
   return (
     <>
-      <div className="border-border border-1 rounded p-3 bg-base-200 m-3">
+      <div className="border-border border-1 rounded p-3 bg-base-200 m-auto">
         <SubHeading
           title={isUpdateMode ? 'Update Shopping Item' : 'Add Shopping Item'}
         />
