@@ -7,11 +7,13 @@ export default function Home() {
   return (
     <>
       <div className="flex flex-col justify-center items-center m-3">
-        <h1 className="text-5xl  p-1 font-bold text-base-content">Grocery App</h1>
+        <h1 className="text-5xl  p-1 font-bold text-base-content">
+          Grocery and Wine
+        </h1>
       </div>
       <div className="container bg-background rounded-lg border border-border mx-auto grid md:grid-cols-3 grid-cols-1 gap-4 p-5">
         {/* Section 1 */}
-       <SectionCard
+        <SectionCard
           headingTitle="Shopping List"
           content={
             <ul>
@@ -40,35 +42,36 @@ export default function Home() {
 
         {/* Section 3 */}
         <SectionCard
-          headingTitle="Meal Planning"
+          headingTitle="Meal Planner"
           content={
             <ul>
-              <li>Plan your meals for the week</li>
-              <li>Generate a shopping list from your meal plan</li>
-              <li>Save your favorite recipes</li>
+              <li>Organize Weekly Meals</li>
+              <li>Calendar view to see 30 days in advance</li>
+              <li>Collect family meal data for analysis</li>
             </ul>
           }
           href={'/mealplanner'}
-          buttonText="Meal Planning"
-          />
+          buttonText="Meal Planner"
+        />
       </div>
-      <div className="container flex flex-col justify-center items-center p-4 my-6 mx-auto bg-background rounded-lg border border-border">
-      <div className='card card-compact bg-base-100 shadow-xl w-full p-4'>
-        <SubHeading title="Detailed Inventory" />
-          <p className="py-2 text-base-content">
-            Enhanced search. Search inventory by name, category. More options and enhancements will be added over time. 
-          </p>
-          <button
-            type="button"
-            className="btn btn-primary w-32"
-            onClick={() => {
-              window.location.href = '/devdash';
-            }}
-          >
-            Dashboard
-          </button>
-      </div>
+      <div className="container flex flex-col justify-center items-center p-4 my-6 mx-auto bg-background rounded-lg border border-border list-none">
+        <div className="card card-compact bg-base-100 shadow-xl w-full p-4">
+          <SubHeading title="Inventory Dashboard" />
+          <li>Crud operations for inventory (create, read, update, delete)</li>
+          <li>Search inventory items by name and category</li>
+          <div className="card-actions justify-end">
+            <button
+              type="button"
+              className="btn btn-primary w-32 "
+              onClick={() => {
+                window.location.href = '/devdash';
+              }}
+            >
+              Dashboard
+            </button>
+          </div>
+        </div>
       </div>
     </>
   );
-          }
+}
