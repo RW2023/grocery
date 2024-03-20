@@ -1,17 +1,24 @@
-import React, { useState } from 'react';
-import SubHeading from '@/Components/Ui/SubHeading'; // Make sure this path is correct
-import LoadingInline from '@/Components/Ui/LoadingInline'; // Make sure this path is correct
+import React from 'react';
+import SubHeading from '@/Components/Ui/SubHeading'; // Adjust the import path as necessary
+import LoadingInline from '@/Components/Ui/LoadingInline'; // Adjust the import path as necessary
+
+interface Recipe {
+  id: number;
+  name: string;
+  description: string;
+}
 
 interface Meal {
   id: number;
   date: string;
   meal_type: string;
   recipe_id?: number;
+  recipe?: Recipe; // Optionally include the recipe object
 }
 
 interface MealsListProps {
   meals: Meal[];
-  isLoading: boolean; // Pass isLoading as a prop if it's managed by a parent component
+  isLoading: boolean;
 }
 
 const MealsList: React.FC<MealsListProps> = ({ meals, isLoading }) => {
@@ -24,10 +31,20 @@ const MealsList: React.FC<MealsListProps> = ({ meals, isLoading }) => {
         ) : (
           <ul className="list-none">
             {meals.map((meal) => (
-              <li key={meal.id} className="mb-2 bg-base-300">
-                <span className="font-semibold">{meal.date}</span> -{' '}
-                {meal.meal_type} - Recipe ID:{' '}
-                <span className="badge badge-outline">{meal.recipe_id}</span>
+              <li key={meal.id} className="mb-2 bg-base-300 p-2">
+                <div className="font-semibold">
+                  {meal.date} - {meal.meal_type}
+                </div>
+                {meal.recipe ? (
+                  <>
+                    <div className="text-lg">{meal.recipe.name}</div>
+                    <p>{meal.recipe.description}</p>
+                  </>
+                ) : (
+                  <div className="text-gray-500">
+                    No recipe details available.
+                  </div>
+                )}
               </li>
             ))}
           </ul>
