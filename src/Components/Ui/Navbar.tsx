@@ -72,7 +72,7 @@ const Navbar = () => {
                 className="icon m-1 rounded-full"
               />
               {/* SubHeading */}
-              <SubHeading title="Grocery App" />
+              <SubHeading title="Grocery & Wine" />
             </div>
           </span>
         </Link>
