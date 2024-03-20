@@ -2,6 +2,8 @@
 'use client';
 import { FC, useState, useEffect } from 'react';
 import { supabase } from '@/utils/supabaseClient'; // Make sure to provide the correct path
+import SubHeading from '@/Components/Ui/SubHeading'; // Make sure to provide the correct path
+import MealsList from './MealsList';
 
 interface Props {}
 
@@ -35,6 +37,7 @@ const Calendar: FC<Props> = (): JSX.Element => {
     }
 
     setMeals(data || []);
+    console.log('Fetched meals:', data);
     };
 
     fetchMealsForMonth(currentYear, currentMonth);
@@ -86,13 +89,15 @@ const Calendar: FC<Props> = (): JSX.Element => {
       '0',
     )}-${String(day).padStart(2, '0')}`;
     const daysMeals = meals.filter((meal) => meal.date === dateStr);
+    console.log('Days meals:', daysMeals);
+
 
     calendarDates.push(
       <div key={day} className="day-cell">
         <div className="date">{day}</div>
         {daysMeals.map((meal) => (
           <div key={meal.id} className="meal">
-            {meal.meal_type}: Recipe {meal.recipe_id}
+            {meal.meal_type}: ID: {meal.recipe_id}
           </div>
         ))}
       </div>,
@@ -132,6 +137,9 @@ const Calendar: FC<Props> = (): JSX.Element => {
             {date}
           </div>
         ))}
+      </div>
+      <div>
+       <MealsList meals={meals} />
       </div>
     </div>
   );
