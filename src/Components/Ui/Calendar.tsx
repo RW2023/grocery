@@ -3,7 +3,7 @@
 import { FC, useState, useEffect } from 'react';
 import { supabase } from '@/utils/supabaseClient'; // Make sure to provide the correct path
 import SubHeading from '@/Components/Ui/SubHeading'; // Make sure to provide the correct path
-import MealsList from './MealsList';
+import MealsList from '@/Components/Ui/MealsList';
 
 interface Props {}
 
@@ -19,6 +19,7 @@ const Calendar: FC<Props> = (): JSX.Element => {
   const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth());
   const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
   const [meals, setMeals] = useState<Meal[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchMealsForMonth = async (year: number, month: number) => {
@@ -37,7 +38,7 @@ const Calendar: FC<Props> = (): JSX.Element => {
     }
 
     setMeals(data || []);
-    console.log('Fetched meals:', data);
+     setIsLoading(false);
     };
 
     fetchMealsForMonth(currentYear, currentMonth);
@@ -139,7 +140,7 @@ const Calendar: FC<Props> = (): JSX.Element => {
         ))}
       </div>
       <div>
-       <MealsList meals={meals} />
+        <MealsList meals={meals} isLoading={isLoading} />
       </div>
     </div>
   );
