@@ -1,17 +1,23 @@
-//src/Components/Ui/Calendar.tsx
+// src/Components/Ui/Calendar.tsx
 'use client';
 import { FC, useState, useEffect } from 'react';
-import { supabase } from '@/utils/supabaseClient'; // Make sure to provide the correct path
-import SubHeading from '@/Components/Ui/SubHeading'; // Make sure to provide the correct path
+import { supabase } from '@/utils/supabaseClient';
 import MealsList from '@/Components/Ui/MealsList';
 
 interface Props {}
+
+interface Recipe {
+  id: number;
+  name: string;
+  description: string;
+}
 
 interface Meal {
   id: number;
   date: string;
   meal_type: string;
-  recipe_id?: number;
+  recipe_id: number;
+  recipe?: Recipe;
 }
 
 const Calendar: FC<Props> = (): JSX.Element => {
@@ -22,24 +28,54 @@ const Calendar: FC<Props> = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchMealsForMonth = async (year: number, month: number) => {
-    const startDate = new Date(year, month, 1);
-    const endDate = new Date(year, month + 1, 0);
+    async function fetchMealsForMonth(year: number, month: number) {
+      setIsLoading(true);
 
-    const { data, error } = await supabase
-        .from('meal_planning')
-        .select('*')
-        .gte('date', startDate.toISOString().split('T')[0])
-        .lte('date', endDate.toISOString().split('T')[0]);
+      const startDate = new Date(year, month, 1).toISOString().split('T')[0];
+      const endDate = new Date(year, month + 1, 0).toISOString().split('T')[0];
 
-    if (error) {
-        console.error('Error fetching meals:', error);
-        return;
+      try {
+        let { data: mealsData, error: mealsError } = await supabase
+          .from('meal_planning')
+          .select('id, date, meal_type, recipe_id')
+          .gte('date', startDate)
+          .lte('date', endDate);
+
+        if (mealsError) throw mealsError;
+
+        // Fetch recipes if there are meals
+        if (mealsData && mealsData.length > 0) {
+          const recipeIds = mealsData.map((meal) => meal.recipe_id);
+          let { data: recipesData, error: recipesError } = await supabase
+            .from('recipes')
+            .select('id, name, description')
+            .in('id', recipeIds);
+
+          if (recipesError) throw recipesError;
+
+          // Create a lookup object for recipes
+          const recipesLookup = recipesData?.reduce<Record<number, Recipe>>(
+            (acc, recipe) => {
+              acc[recipe.id] = recipe;
+              return acc;
+            },
+            {},
+          );
+
+          // Merge meals with their corresponding recipes
+          const combinedMeals = mealsData.map((meal) => ({
+            ...meal,
+            recipe: recipesLookup ? recipesLookup[meal.recipe_id] : undefined,
+          }));
+
+          setMeals(combinedMeals);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setIsLoading(false);
+      }
     }
-
-    setMeals(data || []);
-     setIsLoading(false);
-    };
 
     fetchMealsForMonth(currentYear, currentMonth);
   }, [currentMonth, currentYear]);
@@ -91,7 +127,6 @@ const Calendar: FC<Props> = (): JSX.Element => {
     )}-${String(day).padStart(2, '0')}`;
     const daysMeals = meals.filter((meal) => meal.date === dateStr);
     console.log('Days meals:', daysMeals);
-
 
     calendarDates.push(
       <div key={day} className="day-cell">
