@@ -75,7 +75,6 @@ const ShoppingListDisplay = () => {
         'postgres_changes',
         { event: '*', schema: 'public', table: 'shopping_list' },
         (payload) => {
-          console.log('Change received!', payload);
           fetchShoppingItems(); // Refresh items on change
         },
       )

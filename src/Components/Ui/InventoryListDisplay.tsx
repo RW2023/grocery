@@ -35,7 +35,6 @@ const GroceryListDisplay = () => {
         'postgres_changes',
         { event: 'INSERT', schema: 'public', table: 'grocery_inventory' },
         (payload) => {
-          console.log('Change received!', payload);
           fetchGroceryItems();
         },
       )

@@ -126,7 +126,6 @@ const Calendar: FC<Props> = (): JSX.Element => {
       '0',
     )}-${String(day).padStart(2, '0')}`;
     const daysMeals = meals.filter((meal) => meal.date === dateStr);
-    console.log('Days meals:', daysMeals);
 
     calendarDates.push(
       <div key={day} className="day-cell">
