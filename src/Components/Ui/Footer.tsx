@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="footer footer-center p-4 bg-base-300 text-base-content h-full">
       <aside>
         <p>
-          Copyright © 2023 - All rights reserved by
+          Copyright © 2024 - All rights reserved by
           <span> Ryan Wilson</span>
         </p>
       </aside>
