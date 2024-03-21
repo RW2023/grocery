@@ -82,6 +82,7 @@ const filteredGroceryItems = groceryItems.filter(
               <p>Quantity: {item.quantity}</p>
               <p>Food Group: {item.Food_Group || 'N/A'}</p>
               <p>Health: {item.Health ? 'Healthy' : 'Unhealthy'}</p>
+              <p className='badge badge-success'>id: {item.id}</p>
             </div>
           </div>
         ))}
