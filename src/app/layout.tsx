@@ -47,7 +47,7 @@ export default function RootLayout({
         {/* Manifest for web app */}
         <link rel="manifest" href="/site.webmanifest" />
       </head>
-      <body className="bg-base-300">
+      <body>
         <Navbar />
         {children}
       </body>
